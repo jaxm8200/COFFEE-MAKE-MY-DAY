@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UBN Cafe | Καφέ στη Θεσσαλονίκη</title>
+    <meta name="description" content="UBN Cafe - Ποιοτικός καφές, φρέσκα σνακ και γλυκά στη Θεσσαλονίκη. Λεωφ. Βασιλίσσης Όλγας 146.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #585342;
+            background: #FFFDF5;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* ===== VARIABLES ===== */
+        :root {
+            --gold: #FDD92D;
+            --brown: #585342;
+            --olive: #AE9834;
+            --cream: #FFFDF5;
+            --light-gold: #FFF8DC;
+            --dark: #3a3728;
+            --shadow: 0 4px 30px rgba(88, 83, 66, 0.10);
+            --shadow-lg: 0 12px 40px rgba(88, 83, 66, 0.15);
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--brown); line-height: 1.3; }
+        h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+        h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); }
+        h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
+        p { color: #6b6555; }
+
+        .section-label {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--olive);
+            margin-bottom: 0.8rem;
+        }
+        .section-title { margin-bottom: 1.2rem; }
+        .section-desc {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            font-size: 1.05rem;
+            color: #7a7466;
+        }
+        .text-center { text-align: center; }
+
+        /* ===== UTILITY ===== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        section { padding: 5rem 0; }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--gold);
+            color: var(--brown);
+            box-shadow: 0 4px 15px rgba(253, 217, 45, 0.35);
+        }
+        .btn-primary:hover {
+            background: #f5cf1a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(253, 217, 45, 0.45);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--brown);
+            border: 2px solid var(--brown);
+        }
+        .btn-outline:hover {
+            background: var(--brown);
+            color: var(--cream);
+            transform: translateY(-2px);
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.2rem 0;
+            transition: all 0.4s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(255, 253, 245, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 0.8rem 0;
+            box-shadow: 0 2px 20px rgba(88, 83, 66, 0.08);
+        }
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--brown);
+        }
+        .nav-logo span { color: var(--olive); }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--brown);
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--olive); }
+        .nav-phone {
+            font-weight: 600;
+            color: var(--olive) !important;
+        }
+        .nav-phone i { margin-right: 0.3rem; }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 5px;
+            z-index: 1001;
+        }
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--brown);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5.5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5.5px); }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--light-gold) 50%, #FFF5C3 100%);
+            overflow: hidden;
+            padding-top: 5rem;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(253, 217, 45, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(174, 152, 52, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite reverse;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-30px) scale(1.05); }
+        }
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-content { max-width: 560px; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(253, 217, 45, 0.25);
+            border: 1px solid rgba(253, 217, 45, 0.5);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--brown);
+            margin-bottom: 1.5rem;
+        }
+        .hero-badge i { color: var(--olive); }
+        .hero h1 {
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+        }
+        .hero h1 .highlight {
+            color: var(--olive);
+            position: relative;
+        }
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--gold);
+            opacity: 0.4;
+            border-radius: 4px;
+        }
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #6b6555;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(88, 83, 66, 0.1);
+        }
+        .hero-stat strong {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--brown);
+        }
+        .hero-stat span {
+            font-size: 0.85rem;
+            color: #8a8375;
+        }
+        /* Hero visual */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-image-wrapper {
+            position: relative;
+            width: 420px;
+            height: 420px;
+        }
+        .hero-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--olive));
+            opacity: 0.15;
+            position: absolute;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .hero-icon-main {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
+            color: var(--brown);
+            opacity: 0.85;
+        }
+        .hero-floating {
+            position: absolute;
+            background: white;
+            border-radius: 16px;
+            padding: 1rem 1.3rem;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            animation: floatCard 6s ease-in-out infinite;
+        }
+        .hero-floating i {
+            font-size: 1.2rem;
+            color: var(--olive);
+        }
+        .hero-floating.top-right {
+            top: 10%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+        .hero-floating.bottom-left {
+            bottom: 15%;
+            left: -5%;
+            animation-delay: 2s;
+        }
+        .hero-floating.mid-right {
+            bottom: 35%;
+            right: -15%;
+            animation-delay: 4s;
+        }
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* ===== ABOUT ===== */
+        .about { background: white; }
+        .about .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .about-visual {
+            position: relative;
+        }
+        .about-image-card {
+            background: linear-gradient(135deg, var(--light-gold) 0%, #FFF5C3 100%);
+            border-radius: 24px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .about-image-card i {
+            font-size: 6rem;
+            color: var(--olive);
+            opacity: 0.6;
+            display: block;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .about-image-card::after {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+        .about-accent {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            background: var(--gold);
+            color: var(--brown);
+            border-radius: 16px;
+            padding: 1.2rem 1.5rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .about-accent i { font-size: 1.3rem; }
+        .about-content h2 { margin-bottom: 1.5rem; }
+        .about-content p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .about-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .about-feature i {
+            color: var(--olive);
+            font-size: 1.1rem;
+            width: 30px;
+            height: 30px;
+            background: var(--light-gold);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* ===== MENU ===== */
+        .menu {
+            background: linear-gradient(180deg, var(--cream) 0%, var(--light-gold) 100%);
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        .menu-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--olive));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        .menu-card:hover::before { transform: scaleX(1); }
+        .menu-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        .menu-card-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--light-gold);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            font-size: 1.8rem;
+            color: var(--olive);
+            transition: all 0.3s ease;
+        }
+        .menu-card:hover .menu-card-icon {
+            background: var(--gold);
+            color: var(--brown);
+        }
+        .menu-card h3 { margin-bottom: 0.8rem; }
+        .menu-card p { font-size: 0.9rem; line-height: 1.6; }
+        .menu-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        .menu-item-tag {
+            background: var(--light-gold);
+            color: var(--brown);
+            padding: 0.3rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* ===== WHY US ===== */
+        .why-us { background: white; }
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+        }
+        .why-card {
+            text-align: center;
+            padding: 2rem 1.2rem;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            background: var(--cream);
+        }
+        .why-card:hover {
+            background: white;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+        }
+        .why-icon {
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, var(--gold), var(--olive));
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            font-size: 1.5rem;
+            color: white;
+            transition: transform 0.3s;
+        }
+        .why-card:hover .why-icon { transform: scale(1.1) rotate(5deg); }
+        .why-card h3 { font-size: 1.1rem; margin-bottom: 0.6rem; }
+        .why-card p { font-size: 0.88rem; }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            background: linear-gradient(135deg, var(--brown) 0%, var(--dark) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(253, 217, 45, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .testimonials .section-label { color: var(--gold); }
+        .testimonials .section-title { color: white; }
+        .testimonials .section-desc { color: rgba(255,255,255,0.6); }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+        .testimonial-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        .testimonial-stars {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .testimonial-text {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .testimonial-avatar {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--gold), var(--olive));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--brown);
+        }
+        .testimonial-name {
+            font-weight: 600;
+            color: white;
+            font-size: 0.9rem;
+        }
+        .testimonial-role {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== LOCATION ===== */
+        .location { background: var(--cream); }
+        .location .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .location-info h2 { margin-bottom: 1rem; }
+        .location-info > p {
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+        }
+        .location-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .location-detail-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--light-gold);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--olive);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .location-detail strong {
+            display: block;
+            font-size: 0.95rem;
+            margin-bottom: 0.2rem;
+        }
+        .location-detail p { font-size: 0.9rem; }
+        .location-map {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            height: 400px;
+        }
+        .location-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ===== CONTACT / HOURS ===== */
+        .contact { background: white; }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+        .contact-card {
+            background: var(--cream);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .contact-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+        }
+        .contact-card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold), var(--olive));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.2rem;
+            font-size: 1.4rem;
+            color: white;
+        }
+        .contact-card h3 { margin-bottom: 0.8rem; font-size: 1.15rem; }
+        .contact-card p { font-size: 0.92rem; }
+        .contact-card a {
+            color: var(--olive);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .contact-card a:hover { color: var(--brown); }
+        .hours-table {
+            width: 100%;
+            text-align: left;
+            margin-top: 0.5rem;
+        }
+        .hours-table tr td {
+            padding: 0.35rem 0;
+            font-size: 0.88rem;
+            color: #6b6555;
+        }
+        .hours-table tr td:first-child { font-weight: 500; color: var(--brown); }
+        .hours-table tr td:last-child { text-align: right; }
+
+        /* ===== CTA BANNER ===== */
+        .cta-banner {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--olive) 100%);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .cta-banner h2 {
+            color: var(--brown);
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+        .cta-banner p {
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .cta-banner .btn {
+            background: var(--brown);
+            color: var(--cream);
+            position: relative;
+        }
+        .cta-banner .btn:hover {
+            background: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--dark);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 3rem 0 1.5rem;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 1.5rem;
+        }
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+        }
+        .footer-logo span { color: var(--gold); }
+        .footer-social { display: flex; gap: 1rem; }
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.3s;
+        }
+        .footer-social a:hover {
+            background: var(--gold);
+            color: var(--brown);
+        }
+        .footer-bottom {
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ===== BACK TO TOP ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            background: var(--gold);
+            color: var(--brown);
+            border: none;
+            border-radius: 14px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(253, 217, 45, 0.3);
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(253, 217, 45, 0.4);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero .container { grid-template-columns: 1fr; text-align: center; }
+            .hero-content { max-width: 100%; }
+            .hero-buttons { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .hero-visual { display: none; }
+            .about .container { grid-template-columns: 1fr; }
+            .about-visual { order: -1; }
+            .menu-grid { grid-template-columns: repeat(2, 1fr); }
+            .why-grid { grid-template-columns: repeat(3, 1fr); }
+            .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+            .location .container { grid-template-columns: 1fr; }
+            .location-map { height: 300px; }
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 3.5rem 0; }
+            .nav-links { 
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(255, 253, 245, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 1.5rem;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s;
+            }
+            .nav-links.open { opacity: 1; visibility: visible; }
+            .nav-links a { font-size: 1.2rem; }
+            .hamburger { display: flex; }
+            .why-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .about-features { grid-template-columns: 1fr; }
+            .hero-stats { gap: 1.5rem; }
+        }
+
+        @media (max-width: 480px) {
+            .menu-grid { grid-template-columns: 1fr; }
+            .why-grid { grid-template-columns: 1fr; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#hero" class="nav-logo">UBN <span>Cafe</span></a>
+            <div class="nav-links" id="navLinks">
+                <a href="#about">Σχετικά</a>
+                <a href="#menu">Μενού</a>
+                <a href="#why-us">Γιατί εμάς</a>
+                <a href="#testimonials">Κριτικές</a>
+                <a href="#location">Τοποθεσία</a>
+                <a href="#contact">Επικοινωνία</a>
+                <a href="tel:2316076597" class="nav-phone"><i class="fas fa-phone"></i> 231 607 6597</a>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Μενού πλοήγησης">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-mug-hot"></i> Premium Coffee Experience
+                </div>
+                <h1>Ο καλύτερος καφές στη <span class="highlight">Θεσσαλονίκη</span> σας περιμένει</h1>
+                <p class="hero-desc">
+                    Απολαύστε ποιοτικό καφέ, φρέσκα σνακ και υπέροχα γλυκά σε έναν ζεστό και φιλόξενο χώρο στην καρδιά της Θεσσαλονίκης.
+                </p>
+                <div class="hero-buttons">
+                    <a href="tel:2316076597" class="btn btn-primary">
+                        <i class="fas fa-phone"></i> Καλέστε μας
+                    </a>
+                    <a href="#menu" class="btn btn-outline">
+                        <i class="fas fa-utensils"></i> Δείτε το μενού
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <strong>4.9 <i class="fas fa-star" style="font-size:0.9rem;color:var(--gold)"></i></strong>
+                        <span>Google Reviews</span>
+                    </div>
+                    <div class="hero-stat">
+                        <strong>7/7</strong>
+                        <span>Ημέρες λειτουργίας</span>
+                    </div>
+                    <div class="hero-stat">
+                        <strong>100%</strong>
+                        <span>Φρέσκα Υλικά</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-wrapper">
+                    <div class="hero-circle"></div>
+                    <i class="fas fa-mug-hot hero-icon-main"></i>
+                    <div class="hero-floating top-right">
+                        <i class="fas fa-star"></i> Εξαιρετικός καφές!
+                    </div>
+                    <div class="hero-floating bottom-left">
+                        <i class="fas fa-heart"></i> Ζεστή ατμόσφαιρα
+                    </div>
+                    <div class="hero-floating mid-right">
+                        <i class="fas fa-cake-candles"></i> Φρέσκα γλυκά
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-visual reveal">
+                <div class="about-image-card">
+                    <i class="fas fa-store"></i>
+                    <p style="text-align:center;font-size:1.1rem;font-weight:500;color:var(--brown);">Ένας χώρος φτιαγμένος για τους λάτρεις του καφέ</p>
+                </div>
+                <div class="about-accent">
+                    <i class="fas fa-award"></i> Premium Ποιότητα
+                </div>
+            </div>
+            <div class="about-content">
+                <span class="section-label reveal">Σχετικά με εμάς</span>
+                <h2 class="section-title reveal">Καλωσήρθατε στο <br>UBN Cafe</h2>
+                <p class="reveal">
+                    Το UBN Cafe είναι ένα σύγχρονο καφέ στη Θεσσαλονίκη, στη Λεωφόρο Βασιλίσσης Όλγας, που προσφέρει μια μοναδική εμπειρία καφέ. Σε έναν ζεστό και κομψό χώρο, μπορείτε να χαλαρώσετε απολαμβάνοντας τον αγαπημένο σας καφέ.
+                </p>
+                <p class="reveal">
+                    Με αγάπη για την ποιότητα, επιλέγουμε τα καλύτερα υλικά για τον καφέ, τα γλυκά και τα σνακ μας. Κάθε επίσκεψη στο UBN Cafe είναι μια εμπειρία που θα θέλετε να επαναλάβετε.
+                </p>
+                <div class="about-features reveal">
+                    <div class="about-feature">
+                        <i class="fas fa-mug-hot"></i> Specialty Καφές
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-cookie-bite"></i> Φρέσκα Γλυκά
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-wifi"></i> Δωρεάν WiFi
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-bag-shopping"></i> Take Away
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MENU ===== -->
+    <section class="menu" id="menu">
+        <div class="container text-center">
+            <span class="section-label reveal">Το μενού μας</span>
+            <h2 class="section-title reveal">Ανακαλύψτε τις γεύσεις μας</h2>
+            <p class="section-desc reveal">Από τον αρωματικό μας καφέ μέχρι τα σπιτικά γλυκά μας, κάθε γεύση είναι μια εμπειρία.</p>
+            <div class="menu-grid">
+                <div class="menu-card reveal reveal-delay-1">
+                    <div class="menu-card-icon"><i class="fas fa-mug-hot"></i></div>
+                    <h3>Καφές</h3>
+                    <p>Ποιοτικός καφές με πλούσιο άρωμα και γεύση που ξεχωρίζει</p>
+                    <div class="menu-items">
+                        <span class="menu-item-tag">Espresso</span>
+                        <span class="menu-item-tag">Cappuccino</span>
+                        <span class="menu-item-tag">Flat White</span>
+                        <span class="menu-item-tag">Freddo</span>
+                    </div>
+                </div>
+                <div class="menu-card reveal reveal-delay-2">
+                    <div class="menu-card-icon"><i class="fas fa-glass-water"></i></div>
+                    <h3>Ροφήματα</h3>
+                    <p>Ζεστά και κρύα ροφήματα για κάθε στιγμή της ημέρας</p>
+                    <div class="menu-items">
+                        <span class="menu-item-tag">Σοκολάτα</span>
+                        <span class="menu-item-tag">Τσάι</span>
+                        <span class="menu-item-tag">Χυμοί</span>
+                        <span class="menu-item-tag">Smoothies</span>
+                    </div>
+                </div>
+                <div class="menu-card reveal reveal-delay-3">
+                    <div class="menu-card-icon"><i class="fas fa-cake-candles"></i></div>
+                    <h3>Γλυκά</h3>
+                    <p>Φρέσκα σπιτικά γλυκά που φτιάχνονται καθημερινά με αγάπη</p>
+                    <div class="menu-items">
+                        <span class="menu-item-tag">Lemon Cake</span>
+                        <span class="menu-item-tag">Basque Cheesecake</span>
+                        <span class="menu-item-tag">Cookies</span>
+                        <span class="menu-item-tag">Τάρτες</span>
+                    </div>
+                </div>
+                <div class="menu-card reveal reveal-delay-4">
+                    <div class="menu-card-icon"><i class="fas fa-bread-slice"></i></div>
+                    <h3>Σνακ</h3>
+                    <p>Νόστιμα σνακ, ιδανικά για ένα γρήγορο και γευστικό γεύμα</p>
+                    <div class="menu-items">
+                        <span class="menu-item-tag">Σάντουιτς</span>
+                        <span class="menu-item-tag">Κρουασάν</span>
+                        <span class="menu-item-tag">Τοστ</span>
+                        <span class="menu-item-tag">Bagels</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== WHY US ===== -->
+    <section class="why-us" id="why-us">
+        <div class="container text-center">
+            <span class="section-label reveal">Γιατί UBN Cafe</span>
+            <h2 class="section-title reveal">Γιατί να μας επιλέξετε</h2>
+            <p class="section-desc reveal">Κάθε λεπτομέρεια μετράει. Εμείς φροντίζουμε ώστε κάθε επίσκεψή σας να είναι ξεχωριστή.</p>
+            <div class="why-grid">
+                <div class="why-card reveal reveal-delay-1">
+                    <div class="why-icon"><i class="fas fa-mug-hot"></i></div>
+                    <h3>Ποιοτικός Καφές</h3>
+                    <p>Επιλεγμένες ποικιλίες καφέ για μια αξέχαστη γευστική εμπειρία</p>
+                </div>
+                <div class="why-card reveal reveal-delay-2">
+                    <div class="why-icon"><i class="fas fa-cookie-bite"></i></div>
+                    <h3>Φρέσκα Γλυκά & Σνακ</h3>
+                    <p>Καθημερινά φρέσκα γλυκά και σνακ φτιαγμένα με τα καλύτερα υλικά</p>
+                </div>
+                <div class="why-card reveal reveal-delay-3">
+                    <div class="why-icon"><i class="fas fa-smile"></i></div>
+                    <h3>Ευγενικό Προσωπικό</h3>
+                    <p>Φιλικό και εξυπηρετικό προσωπικό που σας κάνει να νιώθετε σαν στο σπίτι σας</p>
+                </div>
+                <div class="why-card reveal reveal-delay-4">
+                    <div class="why-icon"><i class="fas fa-fire"></i></div>
+                    <h3>Ζεστή Ατμόσφαιρα</h3>
+                    <p>Ένας ζεστός και cozy χώρος ιδανικός για χαλάρωση και απόλαυση</p>
+                </div>
+                <div class="why-card reveal reveal-delay-4">
+                    <div class="why-icon"><i class="fas fa-thumbs-up"></i></div>
+                    <h3>Εξαιρετική Εξυπηρέτηση</h3>
+                    <p>Γρήγορη και ποιοτική εξυπηρέτηση σε κάθε σας επίσκεψη</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="testimonials" id="testimonials">
+        <div class="container text-center">
+            <span class="section-label reveal">Κριτικές πελατών</span>
+            <h2 class="section-title reveal">Τι λένε οι πελάτες μας</h2>
+            <p class="section-desc reveal">Οι αληθινές εμπειρίες των πελατών μας είναι η καλύτερη σύσταση.</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal reveal-delay-1">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        «Εξαιρετικός καφές με υπέροχο άρωμα! Το lemon cake είναι το καλύτερο που έχω δοκιμάσει. Ζεστή ατμόσφαιρα και πολύ φιλικό προσωπικό. Το νέο μου αγαπημένο στέκι!»
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">Μ.Κ</div>
+                        <div>
+                            <div class="testimonial-name">Μαρία Κ.</div>
+                            <div class="testimonial-role">Τακτική πελάτισσα</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-2">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        «Πανέμορφος χώρος, πεντακάθαρος! Τα σνακ είναι πάντα φρέσκα και το Basque cheesecake είναι απλά θεϊκό. Εξαιρετική εξυπηρέτηση κάθε φορά.»
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">Γ.Π</div>
+                        <div>
+                            <div class="testimonial-name">Γιώργος Π.</div>
+                            <div class="testimonial-role">Google Review</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-3">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">
+                        «Το καλύτερο καφέ της γειτονιάς! Ο καφές είναι πάντα τέλειος, τα κρουασάν φρεσκοψημένα και το προσωπικό εξαιρετικά ευγενικό. Σίγουρα θα ξαναέρθω!»
+                    </p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">Ε.Δ</div>
+                        <div>
+                            <div class="testimonial-name">Ελένη Δ.</div>
+                            <div class="testimonial-role">Google Review</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LOCATION ===== -->
+    <section class="location" id="location">
+        <div class="container">
+            <div class="location-info">
+                <span class="section-label reveal">Τοποθεσία</span>
+                <h2 class="section-title reveal">Πού θα μας βρείτε</h2>
+                <p class="reveal">Βρισκόμαστε στην εμβληματική Λεωφόρο Βασιλίσσης Όλγας, σε ένα από τα πιο όμορφα σημεία της Θεσσαλονίκης. Ελάτε να μας επισκεφτείτε!</p>
+                <div class="location-detail reveal">
+                    <div class="location-detail-icon"><i class="fas fa-location-dot"></i></div>
+                    <div>
+                        <strong>Διεύθυνση</strong>
+                        <p>Λεωφ. Βασιλίσσης Όλγας 146<br>Θεσσαλονίκη 546 45, Ελλάδα</p>
+                    </div>
+                </div>
+                <div class="location-detail reveal">
+                    <div class="location-detail-icon"><i class="fas fa-phone"></i></div>
+                    <div>
+                        <strong>Τηλέφωνο</strong>
+                        <p><a href="tel:2316076597">231 607 6597</a></p>
+                    </div>
+                </div>
+                <div class="location-detail reveal">
+                    <div class="location-detail-icon"><i class="fas fa-car"></i></div>
+                    <div>
+                        <strong>Πρόσβαση</strong>
+                        <p>Εύκολη πρόσβαση και θέσεις στάθμευσης κοντά</p>
+                    </div>
+                </div>
+            </div>
+            <div class="location-map reveal">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3028.124!2d22.962!3d40.613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a838f5b0e2c8d7%3A0x0!2zTGVvZi4gVmFzaWxpc3NpcyBPbGdhcyAxNDYsIFRoZXNzYWxvbmlraSA1NDYgNDU!5e0!3m2!1sel!2sgr!4v1700000000000!5m2!1sel!2sgr" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="UBN Cafe τοποθεσία στον χάρτη">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="text-center" style="margin-bottom:3rem;">
+                <span class="section-label reveal">Επικοινωνία</span>
+                <h2 class="section-title reveal">Επικοινωνήστε μαζί μας</h2>
+                <p class="section-desc reveal">Είμαστε εδώ για εσάς κάθε μέρα. Μη διστάσετε να επικοινωνήσετε μαζί μας!</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card reveal reveal-delay-1">
+                    <div class="contact-card-icon"><i class="fas fa-phone"></i></div>
+                    <h3>Τηλέφωνο</h3>
+                    <p>Καλέστε μας για παραγγελίες <br>ή πληροφορίες</p>
+                    <p style="margin-top:1rem;"><a href="tel:2316076597">231 607 6597</a></p>
+                </div>
+                <div class="contact-card reveal reveal-delay-2">
+                    <div class="contact-card-icon"><i class="fas fa-location-dot"></i></div>
+                    <h3>Διεύθυνση</h3>
+                    <p>Λεωφ. Βασιλίσσης Όλγας 146</p>
+                    <p>Θεσσαλονίκη 546 45</p>
+                    <p>Ελλάδα</p>
+                </div>
+                <div class="contact-card reveal reveal-delay-3">
+                    <div class="contact-card-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Ωράριο</h3>
+                    <table class="hours-table">
+                        <tr><td>Δευτέρα - Σάββατο</td><td>7:00 - 20:30</td></tr>
+                        <tr><td>Κυριακή</td><td>8:00 - 20:30</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA BANNER ===== -->
+    <section class="cta-banner">
+        <div class="container">
+            <h2 class="reveal">Σας περιμένουμε στο UBN Cafe!</h2>
+            <p class="reveal">Ελάτε να ανακαλύψετε τον αγαπημένο σας καφέ στη Θεσσαλονίκη</p>
+            <a href="tel:2316076597" class="btn reveal">
+                <i class="fas fa-phone"></i> Κλείστε τραπέζι: 231 607 6597
+            </a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">UBN <span>Cafe</span></div>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Google"><i class="fab fa-google"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 UBN Cafe. Με επιφύλαξη παντός δικαιώματος.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="backToTop" aria-label="Πίσω στην κορυφή">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // ===== NAVBAR SCROLL =====
+        const navbar = document.getElementById('navbar');
+        const backToTop = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            if (window.scrollY > 400) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // ===== MOBILE MENU =====
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('open');
+            document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // ===== SCROLL REVEAL =====
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // ===== SMOOTH SCROLL for Safari =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
